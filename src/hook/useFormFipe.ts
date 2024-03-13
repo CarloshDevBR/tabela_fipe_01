@@ -1,5 +1,3 @@
-'use client';
-
 import { useReducer } from 'react';
 
 interface FormState {
@@ -44,6 +42,7 @@ export const useFormFipe = () => {
 
   return {
     state,
+    completed: Boolean(state.brand && state.model && state.year),
     dispatch,
   };
 };
