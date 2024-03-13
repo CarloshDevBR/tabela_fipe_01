@@ -28,24 +28,32 @@ export const useGetAllSequentialDataFipe = () => {
 
   const years = useMutation({
     mutationKey: ['years'],
-    mutationFn: (id: string) =>
+    mutationFn: ({ idBrand, idModel }: { idBrand: string; idModel: string }) =>
       FETCH({
-        url: `marcas/${id}/modelos/${id}/anos`,
+        url: `marcas/${idBrand}/modelos/${idModel}/anos`,
         method: 'GET',
       }),
   });
 
-  const makeCall = async (id?: string) => {
-    if (!brands.data) return brands.mutate();
-    if (!models.data) return models.mutate(id || '');
-    if (!years.data) return years.mutate(id || '');
+  const getBrands = () => {
+    brands.mutate();
+  };
+
+  const getMOdels = (idBrand: string) => {
+    models.mutate(idBrand);
+  };
+
+  const getYears = (idBrand: string, idModel: string) => {
+    years.mutate({ idBrand, idModel });
   };
 
   return {
     brands: brands.data as Fipe[],
     models: models.data as Fipe[],
     years: years.data as Fipe[],
+    getBrands,
+    getMOdels,
+    getYears,
     isPending: brands.isPending || models.isPending || years.isPending,
-    makeCall,
   };
 };
