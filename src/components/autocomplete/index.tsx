@@ -1,12 +1,10 @@
-import { Autocomplete as At, TextField } from '@mui/material';
+import { Autocomplete as At, AutocompleteProps } from '@mui/material';
 
-type AtProps<T> = {
-  data: T[];
-  label: string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AtProps = AutocompleteProps<any, boolean, boolean, boolean> & {
+  autocompleteClass?: string;
 };
 
-export const Autocomplete = <T,>({ data, label }: AtProps<T>) => {
-  return (
-    <At disablePortal id="combo-box-demo" options={data} sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label={label} />} />
-  );
+export const Autocomplete = ({ autocompleteClass, ...rest }: AtProps) => {
+  return <At {...rest} className={`w-full ${autocompleteClass}`} id="combo-box-demo" />;
 };
