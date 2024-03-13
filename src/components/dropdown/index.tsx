@@ -19,14 +19,16 @@ export const Dropdown = <T,>({ data, renderMenuItem, isLoading, label, ...rest }
 
     if (Array.isArray(data) && data.length > 0) return data.map((item) => renderMenuItem(item));
 
-    return <div className="py-2 px-4">Nenhuma opção</div>;
+    return <div className="text-gray-700 text-sm py-2 px-4">Nenhuma opção</div>;
   };
 
   return (
-    <FormControl fullWidth size="small">
-      <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label" className="text-sm">
+        {label}
+      </InputLabel>
 
-      <Select labelId="demo-simple-select-label" id="demo-simple-select" label={label} sx={{ height: 50 }} {...rest}>
+      <Select labelId="demo-simple-select-label" id="demo-simple-select" label={label} {...rest}>
         {content()}
       </Select>
     </FormControl>
