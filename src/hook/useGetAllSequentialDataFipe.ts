@@ -1,11 +1,8 @@
 import { FETCH } from '@/services/fetch';
 
-import { useMutation } from '@tanstack/react-query';
+import { Fipe, Models } from '@/types';
 
-type Fipe = {
-  codigo: string;
-  nome: string;
-};
+import { useMutation } from '@tanstack/react-query';
 
 export const useGetAllSequentialDataFipe = () => {
   const brands = useMutation({
@@ -17,6 +14,8 @@ export const useGetAllSequentialDataFipe = () => {
       }),
   });
 
+  const dataBrands: Fipe[] = brands.data;
+
   const models = useMutation({
     mutationKey: ['models'],
     mutationFn: (id: string) =>
@@ -25,6 +24,8 @@ export const useGetAllSequentialDataFipe = () => {
         method: 'GET',
       }),
   });
+
+  const dataModels: Models = models.data;
 
   const years = useMutation({
     mutationKey: ['years'],
@@ -35,11 +36,13 @@ export const useGetAllSequentialDataFipe = () => {
       }),
   });
 
+  const dataYears: Fipe[] = years.data;
+
   const getBrands = () => {
     brands.mutate();
   };
 
-  const getMOdels = (idBrand: string) => {
+  const getModels = (idBrand: string) => {
     models.mutate(idBrand);
   };
 
@@ -48,11 +51,14 @@ export const useGetAllSequentialDataFipe = () => {
   };
 
   return {
-    brands: brands.data as Fipe[],
-    models: models.data as Fipe[],
-    years: years.data as Fipe[],
+    dataBrands,
+    isLoadingBrands: brands.isPending,
+    dataModels: dataModels?.modelos,
+    isLoadingModels: models.isPending,
+    dataYears,
+    isLoadingYears: years.isPending,
     getBrands,
-    getMOdels,
+    getModels,
     getYears,
     isPending: brands.isPending || models.isPending || years.isPending,
   };
