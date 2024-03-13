@@ -5,7 +5,7 @@ import { Paragraph } from '../';
 type DropdownProps<T> = SelectProps & {
   data: T[];
   renderMenuItem: (item: T) => React.ReactNode;
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
 export const Dropdown = <T,>({ data, renderMenuItem, isLoading, label, ...rest }: DropdownProps<T>) => {
