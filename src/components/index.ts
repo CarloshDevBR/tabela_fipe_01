@@ -1,6 +1,8 @@
 import { Paragraph } from './paragraph';
 import { Dropdown } from './dropdown';
-import { Button } from './button';
 import { Autocomplete } from './autocomplete';
+import { ButtonLink } from './linkButton';
+import { RenderIf } from './renderIf';
+import { Button } from './button';
 
-export { Paragraph, Dropdown, Button, Autocomplete };
+export { Paragraph, Dropdown, Autocomplete, ButtonLink, Button, RenderIf };
