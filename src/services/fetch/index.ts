@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import { BASE_URL } from '@/constants';
 
 type FetchProps = {
@@ -11,11 +13,15 @@ export const FETCH = async ({ url, method }: FetchProps) => {
       method,
     });
 
+    const dataJSON = await data.json();
+
     if (!data.ok) {
+      toast.error(dataJSON.error);
+
       throw new Error('ocorreu um erro');
     }
 
-    return data.json();
+    return dataJSON;
   } catch (error) {
     console.error(error);
   }
