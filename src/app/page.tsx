@@ -2,20 +2,43 @@
 
 import { useEffect } from 'react';
 
-import { MenuItem } from '@mui/material';
+import { MenuItem, SelectChangeEvent } from '@mui/material';
 
 import { Button, Dropdown, Paragraph } from '@/components';
 
 import { useGetAllSequentialDataFipe } from '@/hook/useGetAllSequentialDataFipe';
+import { ACTIONS, useFormFipe } from '@/hook/useFormFipe';
 
 export default function HomeForm() {
-  const { brands, models, years, makeCall } = useGetAllSequentialDataFipe();
+  const { state, dispatch } = useFormFipe();
+
+  const { brands, models, years, getBrands, getMOdels, getYears } = useGetAllSequentialDataFipe();
 
   useEffect(() => {
     if (!brands) {
-      makeCall();
+      getBrands();
     }
   }, []);
+
+  const handleSelectBrand = (value: SelectChangeEvent<unknown>) => {
+    const id = value.target.value as string;
+
+    dispatch({ type: ACTIONS.SET_BRAND, payload: id });
+
+    getMOdels(id);
+  };
+
+  const handleSelectModels = (value: SelectChangeEvent<unknown>) => {
+    const id = value.target.value as string;
+
+    dispatch({ type: ACTIONS.SET_MODEL, payload: value.target.value as string });
+
+    getYears(state.model, id);
+  };
+
+  const handleSelectYears = (value: SelectChangeEvent<unknown>) => {
+    dispatch({ type: ACTIONS.SET_YEAR, payload: value.target.value as string });
+  };
 
   return (
     <main className="h-screen flex items-center justify-center bg-violet-50">
@@ -35,7 +58,7 @@ export default function HomeForm() {
                 {item.nome}
               </MenuItem>
             )}
-            onChange={(e) => console.log(e)}
+            onChange={handleSelectBrand}
           />
 
           <Dropdown
@@ -46,7 +69,7 @@ export default function HomeForm() {
                 {item.nome}
               </MenuItem>
             )}
-            disabled
+            onChange={handleSelectModels}
           />
 
           <Dropdown
@@ -57,6 +80,7 @@ export default function HomeForm() {
                 {item.nome}
               </MenuItem>
             )}
+            onChange={handleSelectYears}
           />
 
           <Button className="w-44 h-10 mt-4 bg-violet-800 normal-case hover:bg-purple-700" variant="contained" disabled={true}>
