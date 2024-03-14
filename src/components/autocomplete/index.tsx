@@ -6,5 +6,5 @@ type AtProps = AutocompleteProps<any, boolean, boolean, boolean> & {
 };
 
 export const Autocomplete = ({ autocompleteClass, ...rest }: AtProps) => {
-  return <At {...rest} className={`w-full ${autocompleteClass}`} id="combo-box-demo" />;
+  return <At {...rest} className={`w-full ${autocompleteClass}`} id="combo-box-demo" noOptionsText="Nenhuma opção" />;
 };
