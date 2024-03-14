@@ -1,7 +1,7 @@
 import Link, { LinkProps } from 'next/link';
 
 type ButtonLinkProps = LinkProps & {
-  children: string;
+  children: React.ReactNode;
   disabled?: boolean;
   buttonClass?: string;
 };

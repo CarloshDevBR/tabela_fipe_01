@@ -1,7 +1,7 @@
 import { Button as Btn, ButtonProps } from '@mui/material';
 
 type BtnProps = ButtonProps & {
-  children: string;
+  children: React.ReactNode;
 };
 
 export const Button = ({ children, ...rest }: BtnProps) => {
